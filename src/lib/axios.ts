@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: import.meta.env.VITE_API_URL, // <-- aqui
   headers: {
     'Content-Type': 'application/json',
   },
@@ -10,7 +10,6 @@ const api = axios.create({
 // Interceptor para adicionar o token em todas as requisições, exceto na de login
 api.interceptors.request.use(
   (config) => {
-    // Não adiciona o cabeçalho de Autorização para a rota de login
     if (config.url !== '/auth/login') {
       const token = localStorage.getItem('token');
       if (token) {
@@ -19,9 +18,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Interceptor para tratar erros de resposta
@@ -29,7 +26,6 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expirado ou inválido
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/login';
@@ -38,4 +34,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api; 
+export default api;

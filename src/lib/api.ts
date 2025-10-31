@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+// Pega a URL da API a partir da variável de ambiente
 const api = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: import.meta.env.VITE_API_URL, // <-- aqui
     headers: {
         'Content-Type': 'application/json',
     },
@@ -9,7 +10,6 @@ const api = axios.create({
 
 // Interceptor para adicionar token de autenticação
 api.interceptors.request.use((config) => {
-    // Não adiciona token para rotas de cadastro e autenticação
     if (!config.url?.includes('/auth/') && 
         !(config.url?.includes('/api/clientes') && config.method === 'post') && 
         !(config.url?.includes('/api/estabelecimentos') && config.method === 'post')) {
@@ -33,4 +33,4 @@ api.interceptors.response.use(
     }
 );
 
-export default api; 
+export default api;
