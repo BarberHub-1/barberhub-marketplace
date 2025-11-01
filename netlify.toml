@@ -1,9 +1,23 @@
 [build]
-  publish = "build"
+  # Comando para gerar o build do Vite
+  command = "npm run build"
+  # Pasta de saída do Vite
+  publish = "dist"
+  # Diretório das funções serverless
   functions = "netlify/functions"
 
+# Redirecionamentos para o proxy das funções serverless
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/proxy/:splat"
   status = 200
   force = true
+
+# Opcional: headers globais para melhorar CORS e segurança
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
