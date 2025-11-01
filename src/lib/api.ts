@@ -4,7 +4,7 @@ import axios from 'axios';
 const api = axios.create({
   baseURL: '/api', // todas as requisições serão redirecionadas para /.netlify/functions/proxy/
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json'
   },
 });
 
