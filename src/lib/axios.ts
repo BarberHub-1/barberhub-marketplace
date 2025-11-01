@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // URL base agora aponta para o próprio frontend (proxy via Netlify)
 const api = axios.create({
-  baseURL: '/api', // todas as requisições serão redirecionadas para /.netlify/functions/proxy/
+  baseURL: '', // todas as requisições serão redirecionadas para /.netlify/functions/proxy/
   headers: {
     'Content-Type': 'application/json'
   },
