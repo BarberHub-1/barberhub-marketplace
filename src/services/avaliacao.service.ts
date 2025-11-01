@@ -3,11 +3,11 @@ import { Avaliacao } from '../types';
 
 export const avaliacaoService = {
     async getAll(): Promise<Avaliacao[]> {
-        const response = await api.get<Avaliacao[]>('/api/avaliacoes');
+        const response = await api.get<Avaliacao[]>('/avaliacoes');
         return response.data;
     },
 
     async delete(id: number): Promise<void> {
-        await api.delete(`/api/avaliacoes/${id}`);
+        await api.delete(`/avaliacoes/${id}`);
     }
 }; 

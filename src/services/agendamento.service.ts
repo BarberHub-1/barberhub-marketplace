@@ -112,7 +112,7 @@ export const agendamentoService = {
     if (!clienteId) {
       throw new Error('ID do cliente não encontrado');
     }
-    const response = await api.get<AgendamentoResponse[]>(`/api/agendamentos/cliente/${clienteId}`, {
+    const response = await api.get<AgendamentoResponse[]>(`/agendamentos/cliente/${clienteId}`, {
       headers: {
         'Cache-Control': 'no-cache',
       },
@@ -125,7 +125,7 @@ export const agendamentoService = {
 
   // Buscar todos os agendamentos por um ID de cliente específico (para admin)
   getByClienteId: async (clienteId: number): Promise<Agendamento[]> => {
-    const response = await api.get<AgendamentoResponse[]>(`/api/agendamentos/cliente/${clienteId}`);
+    const response = await api.get<AgendamentoResponse[]>(`/agendamentos/cliente/${clienteId}`);
     return response.data.map((agendamento) => ({
       ...agendamento,
       status: (agendamento.statusAgendamento || agendamento.status) as 'AGENDADA' | 'CANCELADA' | 'CONCLUIDA'
@@ -149,7 +149,7 @@ export const agendamentoService = {
       params.append('status', status.join(','));
     }
 
-    const response = await api.get<AgendamentoResponse[]>(`/api/agendamentos/estabelecimento/${estabelecimentoId}`, {
+    const response = await api.get<AgendamentoResponse[]>(`/agendamentos/estabelecimento/${estabelecimentoId}`, {
       params,
       headers: {
         'Cache-Control': 'no-cache',
@@ -180,7 +180,7 @@ export const agendamentoService = {
     }
 
     try {
-      const response = await api.post<AgendamentoResponse>('/api/agendamentos', data);
+      const response = await api.post<AgendamentoResponse>('/agendamentos', data);
       console.log('Resposta do servidor:', response.data);
       
       return {
@@ -204,17 +204,17 @@ export const agendamentoService = {
   },
 
   getEstabelecimentos: async (): Promise<Estabelecimento[]> => {
-    const response = await api.get<Estabelecimento[]>('/api/estabelecimentos');
+    const response = await api.get<Estabelecimento[]>('/estabelecimentos');
     return response.data;
   },
 
   getServicos: async (): Promise<Servico[]> => {
-    const response = await api.get<Servico[]>('/api/servicos');
+    const response = await api.get<Servico[]>('/servicos');
     return response.data;
   },
 
   avaliarAgendamento: async (id: number, avaliacao: AvaliacaoPayload): Promise<void> => {
-    await api.put(`/api/agendamentos/${id}/avaliacao`, {
+    await api.put(`/agendamentos/${id}/avaliacao`, {
       nota: avaliacao.nota,
       comentario: avaliacao.comentario,
       agendamentoId: avaliacao.agendamentoId,

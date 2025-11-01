@@ -4,7 +4,7 @@ import { Estabelecimento, HorarioFuncionamento } from '../types';
 export const estabelecimentoService = {
     // Para páginas públicas
     getAprovados: async (): Promise<Estabelecimento[]> => {
-        const response = await api.get<Estabelecimento[]>('/api/estabelecimentos');
+        const response = await api.get<Estabelecimento[]>('/estabelecimentos');
         return response.data.map(est => ({
             ...est,
             foto: est.foto ? `data:image/jpeg;base64,${est.foto}` : undefined
@@ -13,7 +13,7 @@ export const estabelecimentoService = {
 
     // Para o painel de admin
     getAll: async (): Promise<Estabelecimento[]> => {
-        const response = await api.get<Estabelecimento[]>('/api/estabelecimentos/all');
+        const response = await api.get<Estabelecimento[]>('/estabelecimentos/all');
         return response.data.map(est => ({
             ...est,
             foto: est.foto ? `data:image/jpeg;base64,${est.foto}` : undefined
@@ -21,7 +21,7 @@ export const estabelecimentoService = {
     },
 
     getById: async (id: number): Promise<Estabelecimento> => {
-        const response = await api.get<Estabelecimento>(`/api/estabelecimentos/${id}`);
+        const response = await api.get<Estabelecimento>(`/estabelecimentos/${id}`);
         return {
             ...response.data,
             foto: response.data.foto ? `data:image/jpeg;base64,${response.data.foto}` : undefined
@@ -29,17 +29,17 @@ export const estabelecimentoService = {
     },
 
     getHorarios: async (id: number): Promise<HorarioFuncionamento[]> => {
-        const response = await api.get<HorarioFuncionamento[]>(`/api/estabelecimentos/${id}/horarios`);
+        const response = await api.get<HorarioFuncionamento[]>(`/estabelecimentos/${id}/horarios`);
         return response.data;
     },
 
     create: async (data: any): Promise<Estabelecimento> => {
-        const response = await api.post<Estabelecimento>('/api/estabelecimentos', data);
+        const response = await api.post<Estabelecimento>('/estabelecimentos', data);
         return response.data;
     },
 
     update: async (id: number, data: any): Promise<Estabelecimento> => {
-        const response = await api.put<Estabelecimento>(`/api/estabelecimentos/${id}`, data);
+        const response = await api.put<Estabelecimento>(`/estabelecimentos/${id}`, data);
         return response.data;
     },
 
@@ -48,17 +48,17 @@ export const estabelecimentoService = {
     },
 
     aprovar: async (id: number): Promise<Estabelecimento> => {
-        const response = await api.patch<Estabelecimento>(`/api/estabelecimentos/${id}/status`, { status: 'APROVADO' });
+        const response = await api.patch<Estabelecimento>(`/estabelecimentos/${id}/status`, { status: 'APROVADO' });
         return response.data;
     },
 
     rejeitar: async (id: number): Promise<Estabelecimento> => {
-        const response = await api.patch<Estabelecimento>(`/api/estabelecimentos/${id}/status`, { status: 'REJEITADO' });
+        const response = await api.patch<Estabelecimento>(`/estabelecimentos/${id}/status`, { status: 'REJEITADO' });
         return response.data;
     },
 
     desativar: async (id: number): Promise<Estabelecimento> => {
-        const response = await api.patch<Estabelecimento>(`/api/estabelecimentos/${id}/status`, { status: 'REJEITADO' });
+        const response = await api.patch<Estabelecimento>(`/estabelecimentos/${id}/status`, { status: 'REJEITADO' });
         return response.data;
     }
 }; 

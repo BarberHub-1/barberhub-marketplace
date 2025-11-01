@@ -9,7 +9,8 @@ export interface DashboardStats {
 
 export const dashboardService = {
     async getStats(): Promise<DashboardStats> {
-        const response = await api.get('/api/admin/dashboard/stats');
+        // Tipando a requisição para DashboardStats
+        const response = await api.get<DashboardStats>('/admin/dashboard/stats');
         return response.data;
     }
-}; 
+};
