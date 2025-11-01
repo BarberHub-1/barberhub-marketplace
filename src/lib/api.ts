@@ -2,10 +2,10 @@ import axios from 'axios';
 
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL, // <-- aqui
-    headers: {
-        'Content-Type': 'application/json',
-    },
+  baseURL: '/api', // todas as requisições serão redirecionadas para /.netlify/functions/proxy/
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 // Interceptor para adicionar token de autenticação

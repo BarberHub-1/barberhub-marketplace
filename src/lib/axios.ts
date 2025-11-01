@@ -1,13 +1,14 @@
 import axios from 'axios';
 
+// URL base agora aponta para o próprio frontend (proxy via Netlify)
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // <-- aqui
+  baseURL: '/api', // todas as requisições serão redirecionadas para /.netlify/functions/proxy/
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Interceptor para adicionar o token em todas as requisições, exceto na de login
+// Interceptor para adicionar o token JWT, se existir
 api.interceptors.request.use(
   (config) => {
     if (config.url !== '/auth/login') {
