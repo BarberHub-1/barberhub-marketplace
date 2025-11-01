@@ -1,5 +1,3 @@
-# netlify.toml
-
 [build]
   # Comando para gerar a build do Vite
   command = "bun run build"  # ou "npm run build" / "yarn build"
