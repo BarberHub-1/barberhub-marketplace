@@ -1,9 +1,25 @@
+# netlify.toml
+
 [build]
-  publish = "build"
+  # Comando para gerar a build do Vite
+  command = "bun run build"  # ou "npm run build" / "yarn build"
+  # Pasta onde o Netlify vai buscar os arquivos finais
+  publish = "dist"
+  # Pasta onde estão as funções serverless (proxy)
   functions = "netlify/functions"
 
+# Redireciona chamadas para /api/* para a função proxy
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/proxy/:splat"
   status = 200
   force = true
+
+# Optional: headers globais para permitir CORS se necessário
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://barberhub-marketplace.netlify.app"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Credentials = "true"
